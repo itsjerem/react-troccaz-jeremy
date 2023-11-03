@@ -8,7 +8,7 @@ const App = () => (
     <div>
       <h1>React</h1>
       <a href={`/users`}>Users</a>
-      <a href={`/posts`}>Posts</a>
+      <a href={`/posts`}>Postss</a>
     </div>
     <Outlet />
   </div>
