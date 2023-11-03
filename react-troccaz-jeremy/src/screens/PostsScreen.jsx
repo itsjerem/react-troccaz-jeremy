@@ -9,35 +9,21 @@ import ListContainer from '../components/ListContainer'
 import { TextField } from '../components/Textfield'
 import Post from '../components/Posts'
 import { createFakePosts } from '../services/createFakePosts'
+import { usePosts } from '../hooks/usePosts'
 
 
 function App() {
-  const [users, setUsers] = useState([]) 
-  const [posts, setPosts] = useState([])
-  const [loading, setLoading] = useState(true)
+
+  const { users, loading, posts, deletePost } = usePosts();
+
   const [search, setSearch] = useState("")
 
-
-  useEffect(() => {
-    setTimeout(() => {
-      const nextUsers = createFakeUsers(10);
-      const nextPosts = createFakePosts(10);
-      setUsers(nextUsers);
-      setLoading(false);
-    }, 750)
-  }, []);
 
 const createPost = () => {
   const nextPosts = createFakePosts(1);
   setPosts([ ...nextPosts, ...posts]);
   console.log("createPost");
 }
-
-const deletePost = (id) => {
-  const nextPosts = posts.filter(post => post.id !== id);
-  setPosts(nextPosts);
-}
-
 
 
 const filtered = useMemo(() => {

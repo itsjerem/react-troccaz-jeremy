@@ -7,28 +7,18 @@ import { createFakeUsers } from '../services/createFakeUsers'
 import ListItem from '../components/ListItem'
 import ListContainer from '../components/ListContainer'
 import { TextField } from '../components/Textfield'
+import { transformUser } from '../services/users/utlis'
+import { fetchUsers } from '../services/users/api'
+import { useUsers } from '../hooks/useUsers'
 
 function App() {
-  const [users, setUsers] = useState([]);
+  const { users, loading, setUsers, deleteUser } = useUsers();
   const [search, setSearch] = useState('');
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    setTimeout(() => {
-      const users = createFakeUsers(10);
-      setUsers(users);
-      setLoading(false);
-    }, 750);
-  }, []);
 
   const createUser = () => {
     // setUsers([...createFakeUsers(1), ...users]);
     setUsers((users) => [...createFakeUsers(1), ...users])
-  }
-
-  const deleteUser = (id) => {
-    console.log('id :>> ', id);
-    setUsers(users.filter((user) => user.id !== id));
   }
 
   const filtered = useMemo(() => { 
@@ -52,6 +42,7 @@ function App() {
             <ListItem
               key={user.id}
               name={user.name}
+              avatar={user.avatar}
               onClick={() => deleteUser(user.id)}
             />
           ))}
